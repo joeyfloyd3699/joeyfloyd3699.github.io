@@ -18,11 +18,15 @@
     --ink: #000000;
     --warm-gray: #3d362f;
     --cream: #f0e6d4;
+  }
+
   body {
     font-family: 'Playfair Display', serif;
     background-color: var(--ecru);
     color: var(--charcoal);
     min-height: 100vh;
+  }
+
   .linen-bg {
     position: fixed;
     inset: 0;
@@ -43,6 +47,8 @@
       ),
       repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(180,165,140,0.04) 1px, rgba(180,165,140,0.04) 2px),
       repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(180,165,140,0.03) 1px, rgba(180,165,140,0.03) 2px);
+  }
+
   .linen-bg::before {
     content: '';
     position: absolute;
@@ -51,12 +57,16 @@
     background-size: 200px 200px;
     opacity: 0.6;
     pointer-events: none;
+  }
+
   .page {
     position: relative;
     z-index: 1;
     max-width: 960px;
     margin: 0 auto;
     padding: 2rem 2rem 4rem;
+  }
+
   .back-link {
     display: inline-block;
     font-family: 'Playfair Display', serif;
@@ -68,8 +78,12 @@
     text-decoration: none;
     margin-bottom: 2.5rem;
     transition: color 0.3s ease;
+  }
+
   .back-link:hover {
     color: var(--charcoal);
+  }
+
   .page-title {
     font-weight: 400;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -78,17 +92,20 @@
     text-align: center;
     color: var(--charcoal);
     margin-bottom: 2.5rem;
+  }
+
   .gallery {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+  }
+
   .gallery img {
     width: 100%;
     height: auto;
     display: block;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     border-radius: 2px;
-  }
   }
 
   @media (max-width: 600px) {
