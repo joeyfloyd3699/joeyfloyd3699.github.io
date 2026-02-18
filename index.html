@@ -156,64 +156,10 @@
     box-shadow: 0 12px 50px rgba(0,0,0,0.25);
   }
 
-  .circle .hanger-duck {
-    width: 68%;
+  .circle .circle-hanger {
+    width: 60%;
     height: auto;
     pointer-events: none;
-  }
-
-  /* Duck features hidden by default */
-  .duck-eye, .duck-beak, .duck-foot-left, .duck-foot-right, .duck-tail {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  /* On circle hover: reveal duck features */
-  .circle:hover .duck-eye {
-    opacity: 1;
-    transition-delay: 0.1s;
-  }
-  .circle:hover .duck-beak {
-    opacity: 1;
-    transition-delay: 0.2s;
-  }
-  .circle:hover .duck-tail {
-    opacity: 1;
-    transition-delay: 0.3s;
-  }
-  .circle:hover .duck-foot-left {
-    opacity: 1;
-    transition-delay: 0.4s;
-  }
-  .circle:hover .duck-foot-right {
-    opacity: 1;
-    transition-delay: 0.5s;
-  }
-
-  /* Waddle animation on hover */
-  .circle:hover .duck-body {
-    animation: waddle 0.6s ease-in-out 0.6s 3;
-    transform-origin: center bottom;
-  }
-
-  @keyframes waddle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(4deg); }
-    75% { transform: rotate(-4deg); }
-  }
-
-  /* After waddle: duck walks LEFT out of circle */
-  .circle:hover .hanger-duck {
-    animation: duckWalkOut 2s ease-in 2.4s forwards;
-  }
-
-  @keyframes duckWalkOut {
-    0% { transform: translateX(0) translateY(0); }
-    20% { transform: translateX(-10px) translateY(-5px); }
-    40% { transform: translateX(-30px) translateY(-3px); }
-    60% { transform: translateX(-55px) translateY(-5px); }
-    80% { transform: translateX(-85px) translateY(-3px); }
-    100% { transform: translateX(-200px) translateY(0); opacity: 0; }
   }
 
   .subtitle {
@@ -616,15 +562,11 @@
 </head>
 <body>
 
-<!-- Hand-drawn filters -->
+<!-- Hand-drawn filter -->
 <svg style="position:absolute;width:0;height:0">
   <filter id="hand-drawn">
     <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="3" seed="5" result="turbulence"/>
     <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
-  <filter id="hand-drawn-strong">
-    <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="4" seed="8" result="turbulence"/>
-    <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="3" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
 </svg>
 
@@ -641,51 +583,7 @@
   <h1 class="name">Lindsay Baugh</h1>
   <div class="circle-container">
     <div class="circle" id="circleBtn" title="Enter">
-      <svg class="hanger-duck" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g class="duck-body">
-          <!-- Hook: up from center, curves LEFT, curls inward -->
-          <!-- Drawn as filled shape for thick/thin variation -->
-          <path class="hanger-hook" d="
-            M 96 67 C 95 60, 96 50, 97 40
-            C 97 20, 80 9, 66 16
-            C 56 21, 55 33, 63 38
-            C 69 42, 74 37, 72 31
-            L 76 29 C 78 37, 71 45, 62 41
-            C 51 35, 52 18, 66 12
-            C 83 4, 102 16, 103 38
-            C 104 50, 103 60, 104 67 Z
-          " fill="var(--ecru)"/>
-          <!-- Left shoulder as filled shape -->
-          <path class="hanger-shoulder-l" d="
-            M 96 67 C 88 74, 58 94, 24 118
-            L 21 113
-            C 56 90, 86 72, 104 67 Z
-          " fill="var(--ecru)"/>
-          <!-- Right shoulder as filled shape -->
-          <path class="hanger-shoulder-r" d="
-            M 104 67 C 114 74, 142 94, 176 118
-            L 179 113
-            C 144 90, 116 72, 96 67 Z
-          " fill="var(--ecru)"/>
-          <!-- Bottom bar as filled shape with slight bow -->
-          <path class="hanger-bar" d="
-            M 21 113 C 60 116, 140 116, 179 113
-            L 176 120 C 138 122, 62 122, 24 120 Z
-          " fill="var(--ecru)"/>
-          
-          <!-- DUCK FEATURES (hidden by default) -->
-          <!-- Eye -->
-          <circle class="duck-eye" cx="66" cy="22" r="3" fill="var(--ink)"/>
-          <!-- Beak extending left from hook tip -->
-          <path class="duck-beak" d="M 63 35 L 44 28 L 50 40 Z" fill="var(--ecru)" stroke="none"/>
-          <!-- Left foot -->
-          <path class="duck-foot-left" d="M 68 120 L 60 142 L 48 138 M 60 142 L 58 152 M 60 142 L 72 144" stroke="var(--ecru)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <!-- Right foot -->
-          <path class="duck-foot-right" d="M 124 120 L 132 142 L 120 146 M 132 142 L 132 152 M 132 142 L 144 144" stroke="var(--ecru)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <!-- Tail feathers from right side -->
-          <path class="duck-tail" d="M 176 118 L 192 108 M 176 118 L 196 114 M 176 118 L 190 124" stroke="var(--ecru)" stroke-width="5" stroke-linecap="round" fill="none"/>
-        </g>
-      </svg>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARcAAACvCAYAAADXPZp4AAAGZklEQVR4nO3d2XbjNhBAQXpO/v+XlSfZskyRAIgmtqrXTCidhLjTgLavx+OxAdT2r/UTAOYkLkAIcQFCiAsQQlyAEOIChBAXIMR/rZ8AQ7v6JqmvKs+CLokLuWq+6/L1WkIzGXEhxR1v4xaayYgLR1p9NuT5uCIzMAe67Hls7cLyqofnQCFx4V1vC7qX0JHJtohXNRbxp63M1Ws/Dq5Nh8SFp5LFn7PY9/5s7mMKzEDEhW3LW+Q1F/frtVKfg8AMwpkLrcKyd+3U6zuDGYC4rC11keYs/KsEZhLiwpkWW5A7Y0YQcVlXyt/8rRf42eObXjomLnzSOiwMTlzY01NYTC+DEpc1HS3InsLy1ONz4oS4MAPTS4fEhVGYXgYjLkAIcQFCiAsjOdoaOXfpjLgAIcQFCCEuvLO9oApxWZOXdQknLkAIcQFCiMu6bI0IJS6MZLQPXC7NF3Sv7bkgfek11Zlc2DZhIYC4MArvvxmMuDADk1eHxIURmFoGJC707iwsppZOiQs9M7EMTFwYmamlY+JCr0wtg/MmOnqT8/vVdMzkQk+EZSLiQi+EZTK2RbSWc7YiLAMxudCSsExMXGhFWCZnW8Tdcl9iFpZBmVy4k7AsxOTCHURlQSYXognLokwuRBGVxZlciCAsmFyozkvMbNtmcqEuYeGbyYUaRIU/TC7cSVgWYnLhCp9k5iOTC6WEhUPiQiRhWZi4UCJlahGWxYkLuYSFJOJCDmEhmbhQk7DwTVxI5WdVySIupBAWsokLEEJcOGNqoYi4ACHEhSOmFoqJCxBCXChlauGQuPBJ7vfgwi/iQglTC6fEBQghLkAIcSGXLRFJxIU9DnO5TFyAEOIChBAXIIS4sMehLZeJC7kemwNfEvjFRUrtBcbEwzeTC++uTCYmGr6JC0+1tjsCw7Zt4kLMGYrAIC4Liz6YFZjFOdBdz52L/vlYDnoXZHJZS6tpwsvXCzK5rKF0YT8njlpheL2OaWZy4jK/kjC8L/zakXm/ltBMSFzmVSMqe/88Ynvzfk2xmYC4zCciKjl/tvZ7ZYRmUOIyj6vnKrVEntO8Xp/Oicv4eonKp+tHvkFPaDomLmOL3gLVEBWZT9cUnE6Iy5h6nVZSH/uudwYLTUPiMpYRo7KnRWjeH5dg4jKGWaKy5/05mmomIS79mzkse+6KjdAEE5d+rRaVT+6IjdAEEJf+iMqx6Ng4p6lEXPohKmXujM3q/62ziEt7VxaDm/2vyFeihCaDuLQjKvEipxqhOSEu9xOVdqKmGqHZIS73EZW+CE0wcYknKv0TmgDiEkdUxhR1TrNcaMSlvqs34xI33kAiv+Jz6v/X4lJHjRtv6httAhFbp6mnGXG5xpSyJqFJIC75at1MU9xACM0n4pLO1oczQvNCXI6ZUii1fGjE5a+arwp0fwNwi8jQdHuPicsPUwp3qB2abqeZ1eNiSqGlqUOzalxEhd5EhabZ/blaXGx9GEHN0DSbZlaIi6AwsmFDM3NcvC+F2USEJuwenzEuosIKan2gMiwys8TF1odV1Zpmqkdm9LiYUuBHjWmmWmRGjYuowGc1ppnHdnGNjBYXX3EAea5MM5emmFHiIipwze2R+VfwQHe7+l20wgI/rqyJrLXY6+RiUoFYpecyyWcxvcVFVOB+X1t+YJ7/3kc9xcVPcUA71X/loHVcTCrQl5zIHG6RWsXFlAJ9S90qfQzM3a8WPTZhgVGkrrfdNX3X5GL7A2PKPez9Fh0XUwqML+Uc5s/2KGpbZPsD88lal7UnF9sfYNu2enERFeCXGtsin/2BdSSv1yuTS2lUxAQWUDq5CAusKXntl0wuJWERFRhb9rrPjUvuA4gKfFbzlz+fItZc+Jvoch5AVJhRRAxqa/Uc/6z51LgICzMYIQ7TSIlL6v8QUeHJIl7L7to/i4uwzE0EuCL8m+iEpS2BoIXTdX8lLqJSl0gwgirv0HWz5/PfjD2t/iJu+pm/0sllpqlFEDgy8r3e9Lm3/oLuSKKxnpFDMJ0Z4iIi97OIOXUUl6Pvzrz0A9WFRKQOYeAWVyeXqMgIyTmRoGt3fBNd9V9ym4xIMKWzuBT/rMCLFaIiEPAmZXKpEZgeCQIESt0WjRYY4YDGcs5cejw7ERHoVMmBbqvICAkMpNYHF2uHRkhgcLVeihYD4Jeo34oGFicuQAhxAUKICxDif7VDFBQxcNSkAAAAAElFTkSuQmCC" alt="hanger" class="circle-hanger">
     </div>
   </div>
   <button class="enter-btn" id="enterBtn">Enter Here</button>
@@ -693,7 +591,7 @@
   <div class="social-icons">
     <a href="mailto:lindsaybaugh@yahoo.com" class="social-icon" title="Email">
       <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-        <!-- Envelope drawn as filled outline with varying thickness -->
+        <!-- Envelope outline -->
         <path d="
           M 12 6 C 35 5, 65 7, 90 6 C 94 6, 96 9, 96 13
           C 97 30, 96 55, 96 67 C 96 72, 93 75, 88 75
@@ -705,13 +603,17 @@
           C 91 55, 92 25, 92 13 C 92 10, 90 11, 88 12
           C 65 12, 35 11, 12 12 Z
         " fill="currentColor" fill-rule="evenodd"/>
-        <!-- Envelope flap V -->
+        <!-- Top V flap -->
         <path d="
           M 8 10 C 20 8, 30 8, 45 8 L 50 8 L 55 8 C 70 8, 80 8, 92 10
           L 52 42 C 50 44, 49 44, 47 42 Z
           M 18 12 L 50 37 L 82 12
           C 70 12, 30 12, 18 12 Z
         " fill="currentColor" fill-rule="evenodd"/>
+        <!-- Bottom-left to center line -->
+        <path d="M 7 72 L 40 44 L 44 48 L 10 75 Z" fill="currentColor"/>
+        <!-- Bottom-right to center line -->
+        <path d="M 93 72 L 60 44 L 56 48 L 90 75 Z" fill="currentColor"/>
       </svg>
     </a>
     <a href="https://www.linkedin.com/in/lindsay-baugh-731a1866/" class="social-icon" title="LinkedIn">
