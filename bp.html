@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Market Analysis & Benchmarking — Lindsay Baugh</title>
+<title>BP Fall 2014 Project — Lindsay Baugh</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,11 +18,15 @@
     --ink: #000000;
     --warm-gray: #3d362f;
     --cream: #f0e6d4;
+  }
+
   body {
     font-family: 'Playfair Display', serif;
     background-color: var(--ecru);
     color: var(--charcoal);
     min-height: 100vh;
+  }
+
   .linen-bg {
     position: fixed;
     inset: 0;
@@ -43,6 +47,8 @@
       ),
       repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(180,165,140,0.04) 1px, rgba(180,165,140,0.04) 2px),
       repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(180,165,140,0.03) 1px, rgba(180,165,140,0.03) 2px);
+  }
+
   .linen-bg::before {
     content: '';
     position: absolute;
@@ -51,12 +57,16 @@
     background-size: 200px 200px;
     opacity: 0.6;
     pointer-events: none;
+  }
+
   .page {
     position: relative;
     z-index: 1;
     max-width: 960px;
     margin: 0 auto;
     padding: 2rem 2rem 4rem;
+  }
+
   .back-link {
     display: inline-block;
     font-family: 'Playfair Display', serif;
@@ -68,8 +78,12 @@
     text-decoration: none;
     margin-bottom: 2.5rem;
     transition: color 0.3s ease;
+  }
+
   .back-link:hover {
     color: var(--charcoal);
+  }
+
   .page-title {
     font-weight: 400;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -78,10 +92,14 @@
     text-align: center;
     color: var(--charcoal);
     margin-bottom: 2.5rem;
+  }
+
   .gallery {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+  }
+
   .gallery img {
     width: 100%;
     height: auto;
@@ -89,9 +107,7 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     border-radius: 2px;
   }
-  }
-
-  @media (max-width: 600px) {
+@media (max-width: 600px) {
     .page { padding: 1.5rem 1rem 3rem; }
   }
 </style>
@@ -101,16 +117,19 @@
 <div class="linen-bg"></div>
 <div class="page">
   <a href="index.html#links" class="back-link">&larr; Back</a>
-  <h1 class="page-title">Market Analysis & Benchmarking</h1>
+  <h1 class="page-title">BP Fall 2014 Project</h1>
   <div class="gallery">
-    <img src="files/Nameandclaimslide1.JPG" alt="Suiting Name & Claim Analysis — Title">
-    <img src="files/Nameandclaimslide2.JPG" alt="Benchmark Suiting — Empowerment & Emotion">
-    <img src="files/Nameandclaimslide3.JPG" alt="Emotional Word Bank">
-    <img src="files/Nameandclaimslide4.JPG" alt="Benchmark — Fabrication Coordination & Education">
-    <img src="files/Nameandclaimslide5.JPG" alt="Current OE Assortment Name & Claim">
-    <img src="files/Nameandclaimslide6.JPG" alt="Educating the Customer — Benchmark Aritzia">
-    <img src="files/Nameandclaimslide7.JPG" alt="Open Edit Spring 2026 Suiting Assortment">
-    <img src="files/Nameandclaimslide8.JPG" alt="Suiting by Season 2026">
+    <img src="files/bp-slide-01.jpg" alt="Undercover Capsule — Back to School 2014 Title">
+    <img src="files/bp-slide-02.jpg" alt="Inspiration & Mood">
+    <img src="files/bp-slide-03.jpg" alt="Color Palette">
+    <img src="files/bp-slide-04.jpg" alt="Print & Pattern / Fabric & Texture">
+    <img src="files/bp-slide-05.jpg" alt="Look #1">
+    <img src="files/bp-slide-06.jpg" alt="Look #2">
+    <img src="files/bp-slide-07.jpg" alt="Look #3">
+    <img src="files/bp-slide-08.jpg" alt="Look #4">
+    <img src="files/bp-slide-09.jpg" alt="Look #5">
+    <img src="files/bp-slide-10.jpg" alt="Flats — Tops">
+    <img src="files/bp-slide-11.jpg" alt="Flats — Bottoms">
   </div>
 </div>
 
