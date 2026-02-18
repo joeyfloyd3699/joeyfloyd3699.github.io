@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume — Lindsay Baugh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ecru: #e8dcc8;
+    --charcoal: #111111;
+    --ink: #000000;
+    --warm-gray: #3d362f;
+    --cream: #f0e6d4;
+  }
+
+  body {
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: var(--ecru);
+    color: var(--charcoal);
+    min-height: 100vh;
+  }
+
+  /* Draped fabric texture */
+  .linen-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--ecru);
+    background-image:
+      radial-gradient(ellipse 120% 80% at 15% 20%, rgba(255,248,235,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse 100% 90% at 80% 15%, rgba(255,250,240,0.35) 0%, transparent 45%),
+      radial-gradient(ellipse 90% 120% at 40% 75%, rgba(200,185,160,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 110% 70% at 70% 60%, rgba(255,248,235,0.3) 0%, transparent 45%),
+      radial-gradient(ellipse 80% 100% at 25% 50%, rgba(200,185,160,0.12) 0%, transparent 40%),
+      linear-gradient(135deg,
+        rgba(255,250,240,0.25) 0%, transparent 15%,
+        rgba(200,185,160,0.1) 25%, transparent 35%,
+        rgba(255,250,240,0.2) 45%, transparent 55%,
+        rgba(200,185,160,0.08) 65%, transparent 75%,
+        rgba(255,250,240,0.15) 85%, transparent 100%
+      ),
+      linear-gradient(225deg,
+        rgba(255,250,240,0.15) 0%, transparent 20%,
+        rgba(200,185,160,0.08) 35%, transparent 50%,
+        rgba(255,250,240,0.12) 65%, transparent 80%
+      ),
+      repeating-linear-gradient(
+        0deg, transparent, transparent 1px,
+        rgba(180,165,140,0.04) 1px, rgba(180,165,140,0.04) 2px
+      ),
+      repeating-linear-gradient(
+        90deg, transparent, transparent 1px,
+        rgba(180,165,140,0.03) 1px, rgba(180,165,140,0.03) 2px
+      );
+  }
+
+  .linen-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .linen-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 30%, rgba(255,252,245,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 75% 70%, rgba(160,145,120,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 70% 40% at 55% 45%, rgba(255,250,240,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .back-link:hover {
+    color: var(--charcoal);
+  }
+
+  /* ─── RESUME HEADER ─── */
+  .resume-name {
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--charcoal);
+    margin-bottom: 0.3rem;
+  }
+
+  .resume-tagline {
+    font-weight: 400;
+    font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--warm-gray);
+    margin-bottom: 0.3rem;
+  }
+
+  .resume-contact {
+    font-weight: 400;
+    font-size: clamp(0.6rem, 1.1vw, 0.72rem);
+    letter-spacing: 0.15em;
+    text-align: center;
+    color: var(--warm-gray);
+    margin-bottom: 2rem;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-header {
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.2rem;
+    margin-top: 1.8rem;
+  }
+
+  .section-header:first-of-type {
+    margin-top: 0;
+  }
+
+  /* ─── JOB ENTRIES ─── */
+  .job {
+    margin-bottom: 1.3rem;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .job-title {
+    font-weight: 600;
+    font-size: clamp(0.68rem, 1.2vw, 0.78rem);
+    letter-spacing: 0.1em;
+    color: var(--charcoal);
+  }
+
+  .job-dates {
+    font-weight: 400;
+    font-size: clamp(0.58rem, 1vw, 0.68rem);
+    letter-spacing: 0.08em;
+    color: var(--warm-gray);
+    white-space: nowrap;
+  }
+
+  .job ul {
+    list-style: disc;
+    padding-left: 1.3rem;
+    margin-top: 0.2rem;
+  }
+
+  .job li {
+    font-weight: 400;
+    font-size: clamp(0.62rem, 1.05vw, 0.72rem);
+    line-height: 1.65;
+    color: var(--charcoal);
+    margin-bottom: 0.15rem;
+  }
+
+  /* ─── EDUCATION ─── */
+  .edu-entry {
+    font-weight: 400;
+    font-size: clamp(0.62rem, 1.05vw, 0.72rem);
+    line-height: 1.65;
+    color: var(--charcoal);
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-entry strong {
+    font-weight: 600;
+  }
+
+  /* ─── SKILLS ─── */
+  .skills-text {
+    font-weight: 400;
+    font-size: clamp(0.62rem, 1.05vw, 0.72rem);
+    line-height: 1.65;
+    color: var(--charcoal);
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 1.5rem 1rem 3rem; }
+    .job-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="linen-bg"></div>
+
+<div class="page">
+  <a href="index.html#links" class="back-link">&larr; Back</a>
+
+  <!-- Header -->
+  <h1 class="resume-name">Lindsay Baugh</h1>
+  <p class="resume-tagline">Designer, Specializing in Women's Apparel</p>
+  <p class="resume-contact">765-490-4623 &ensp;|&ensp; lindsaybaugh@yahoo.com &ensp;|&ensp; Seattle Metropolitan Area</p>
+
+  <!-- Work Experience -->
+  <h2 class="section-header">Work Experience</h2>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Flex Designer – Women's &ensp;|&ensp; NPG &ensp;|&ensp; Seattle, WA</span>
+      <span class="job-dates">Jul 2021 – May 2023 | Jul 2023 – Jan 2025 | Jul 2025 – Nov 2025</span>
+    </div>
+    <ul>
+      <li>Supported NPG women's teams with sketching seasonal designs in Illustrator (knit, woven, & sweater categories)</li>
+      <li>Exclusively supported BP/Abound design team as flex designer for denim and woven categories (July 2025 – November 2025)</li>
+      <li>Mentored woven Associate Designer to support growth of their design capabilities</li>
+      <li>Created trend and benchmark resources to identify key category trends to support Design Directors with test and development strategies</li>
+      <li>Supported Men's and Kid's Sr Designer within concept team with creation of seasonal trend decks</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Sr Designer – Concept Team &ensp;|&ensp; NPG &ensp;|&ensp; Seattle, WA</span>
+      <span class="job-dates">Jun 2019 – Jun 2020</span>
+    </div>
+    <ul>
+      <li>Owned Chelsea28 coat and dress seasonal trend direction</li>
+      <li>Supported Sr Design Director with creation of seasonal trend direction for women's millennial customer</li>
+      <li>Distilled color trend information for the women's millennial customer and created visual tools for concept team to utilize each season</li>
+      <li>Collaborated with print team to curate seasonal print direction</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Sr Designer/Designer – Gen Z Casual Wovens & Denim &ensp;|&ensp; NPG &ensp;|&ensp; Seattle, WA</span>
+      <span class="job-dates">Aug 2015 – May 2017</span>
+    </div>
+    <ul>
+      <li>Responsible for designing all casual wovens and denim for Gen Z brands, designing on average 50-100 styles per season</li>
+      <li>Developed 'story by month' using trend direction and line plan to suggest monthly assortment and key colors to buyers</li>
+      <li>Proposed casual woven fabric platform bi-yearly and quarterly to leverage best fabric strategy across FP/OP brands in Gen Z portfolio</li>
+      <li>Curated woven prints based on Sr Design Director's seasonal trend</li>
+      <li>Mentored Assistant/Associate Designers to support growth of their design capabilities</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Designer – Special Projects Junior Apparel &ensp;|&ensp; Kohl's &ensp;|&ensp; Santa Monica, CA</span>
+      <span class="job-dates">Feb 2014 – Jul 2015</span>
+    </div>
+    <ul>
+      <li>Responsible for designing the highest volume category and brand in the junior's space (So knits)</li>
+      <li>Designed and developed test strategies for fast fashion and large investment core items utilizing Los Angeles domestic partners</li>
+      <li>Nominated to design an exclusive Junior and 7-14 line for Disney's live action Cinderella movie (responsible for mood, art direction, color palette creation, design and execution of styles, resulting in the highest sell through Disney licensing collaboration to date)</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Designer – Junior Brands Hang Ten & Mudd &ensp;|&ensp; Kohl's &ensp;|&ensp; Menomonee Falls, WI</span>
+      <span class="job-dates">Jan 2012 – Jan 2014</span>
+    </div>
+    <ul>
+      <li>Researched and created seasonal trend concept and color palettes for Hang Ten and Mudd brands</li>
+      <li>Designed knits, sweaters, woven tops, dresses and jackets</li>
+      <li>Selected and developed core, seasonal and fashion fabrications/washes</li>
+      <li>Created style tech pack containing Illustrator sketch, style details and key points of measure</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Designer – YC FP/OP Brands &ensp;|&ensp; NPG &ensp;|&ensp; Seattle, WA</span>
+      <span class="job-dates">Nov 2011 – Dec 2011</span>
+    </div>
+    <ul>
+      <li>Designed BP/Abound knits, as well as knits & sweaters for 14th & Union, designing on average 45 styles per season</li>
+      <li>Led collabs with product developers and technical designers to communicate design intent for first proto samples</li>
+      <li>Participated in weekly fittings with technical design to ensure vision and fit intent were achieved</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Associate Designer – YC FP/OP Brands &ensp;|&ensp; NPG &ensp;|&ensp; Seattle, WA</span>
+      <span class="job-dates">Feb 2008 – Oct 2011</span>
+    </div>
+    <ul>
+      <li>Responsible for designing dresses (all categories) & soft accessories for BP junior brands</li>
+      <li>Designed the most successful soft accessories line in BP history to date, resulting in 2010 Q4 Cash Call</li>
+      <li>Maintained fabric chart and raw materials checklists for knit & sweater categories</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Assistant Designer – YC FP/OP Brands &ensp;|&ensp; NPG &ensp;|&ensp; Seattle, WA</span>
+      <span class="job-dates">Oct 2006 – Jan 2008</span>
+    </div>
+    <ul>
+      <li>Created & maintained spec pack information in Web PDM/Flex PLM systems including: BOM, detail pages and front/back sketches</li>
+      <li>Selected and approved all trims for junior sweater and knit categories (which included 5 YC brands within the YC portfolio)</li>
+      <li>Responsible for all solid lab dip color approvals</li>
+    </ul>
+  </div>
+
+  <!-- Education -->
+  <h2 class="section-header">Education</h2>
+  <p class="edu-entry"><strong>Bachelor of Science in Apparel Design and Technology</strong> &ensp;|&ensp; Purdue University &ensp;|&ensp; West Lafayette, IN</p>
+  <p class="edu-entry"><strong>Academia Italiana</strong> &ensp;|&ensp; Florence, Italy &ensp;|&ensp; Jan 2006 – May 2006</p>
+
+  <!-- Skills -->
+  <h2 class="section-header">Skills</h2>
+  <p class="skills-text">Adobe Illustrator, Photoshop, InDesign, FlexPLM, Microsoft Office Products, Mural</p>
+
+</div>
+
+</body>
+</html>
