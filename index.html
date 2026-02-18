@@ -157,10 +157,9 @@
   }
 
   .circle .hanger-duck {
-    width: 65%;
+    width: 68%;
     height: auto;
     pointer-events: none;
-    stroke: var(--ecru);
   }
 
   /* Duck features hidden by default */
@@ -179,17 +178,14 @@
     transition-delay: 0.2s;
   }
   .circle:hover .duck-tail {
-    stroke: var(--ecru);
     opacity: 1;
     transition-delay: 0.3s;
   }
   .circle:hover .duck-foot-left {
-    stroke: var(--ecru);
     opacity: 1;
     transition-delay: 0.4s;
   }
   .circle:hover .duck-foot-right {
-    stroke: var(--ecru);
     opacity: 1;
     transition-delay: 0.5s;
   }
@@ -206,18 +202,18 @@
     75% { transform: rotate(-4deg); }
   }
 
-  /* After waddle: duck walks out of circle */
+  /* After waddle: duck walks LEFT out of circle */
   .circle:hover .hanger-duck {
     animation: duckWalkOut 2s ease-in 2.4s forwards;
   }
 
   @keyframes duckWalkOut {
     0% { transform: translateX(0) translateY(0); }
-    20% { transform: translateX(10px) translateY(-5px); }
-    40% { transform: translateX(30px) translateY(-3px); }
-    60% { transform: translateX(55px) translateY(-5px); }
-    80% { transform: translateX(85px) translateY(-3px); }
-    100% { transform: translateX(200px) translateY(0); opacity: 0; }
+    20% { transform: translateX(-10px) translateY(-5px); }
+    40% { transform: translateX(-30px) translateY(-3px); }
+    60% { transform: translateX(-55px) translateY(-5px); }
+    80% { transform: translateX(-85px) translateY(-3px); }
+    100% { transform: translateX(-200px) translateY(0); opacity: 0; }
   }
 
   .subtitle {
@@ -266,8 +262,8 @@
 
   .social-icon {
     display: block;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     color: var(--charcoal);
     transition: color 0.3s ease, transform 0.3s ease;
   }
@@ -280,7 +276,6 @@
   .social-icon svg {
     width: 100%;
     height: 100%;
-    /* Hand-drawn wobbly effect */
     filter: url(#hand-drawn);
   }
 
@@ -621,11 +616,15 @@
 </head>
 <body>
 
-<!-- Hand-drawn filter -->
+<!-- Hand-drawn filters -->
 <svg style="position:absolute;width:0;height:0">
   <filter id="hand-drawn">
-    <feTurbulence type="turbulence" baseFrequency="0.03" numOctaves="3" seed="2" result="turbulence"/>
-    <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="3" seed="5" result="turbulence"/>
+    <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="hand-drawn-strong">
+    <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="4" seed="8" result="turbulence"/>
+    <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="3" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
 </svg>
 
@@ -644,24 +643,47 @@
     <div class="circle" id="circleBtn" title="Enter">
       <svg class="hanger-duck" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g class="duck-body">
-          <!-- Hanger hook = duck neck/head -->
-          <path class="hanger-hook" d="M 100 68 L 100 44 C 100 24, 124 16, 132 30 C 138 40, 130 48, 120 44" stroke-width="8" stroke-linecap="round"/>
-          <!-- Hanger shoulders = duck body -->
-          <path class="hanger-shoulders" d="M 28 118 Q 64 88, 100 68 Q 136 88, 172 118" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Bottom bar -->
-          <line class="hanger-bar" x1="28" y1="118" x2="172" y2="118" stroke-width="8" stroke-linecap="round"/>
+          <!-- Hook: up from center, curves LEFT, curls inward -->
+          <!-- Drawn as filled shape for thick/thin variation -->
+          <path class="hanger-hook" d="
+            M 96 67 C 95 60, 96 50, 97 40
+            C 97 20, 80 9, 66 16
+            C 56 21, 55 33, 63 38
+            C 69 42, 74 37, 72 31
+            L 76 29 C 78 37, 71 45, 62 41
+            C 51 35, 52 18, 66 12
+            C 83 4, 102 16, 103 38
+            C 104 50, 103 60, 104 67 Z
+          " fill="var(--ecru)"/>
+          <!-- Left shoulder as filled shape -->
+          <path class="hanger-shoulder-l" d="
+            M 96 67 C 88 74, 58 94, 24 118
+            L 21 113
+            C 56 90, 86 72, 104 67 Z
+          " fill="var(--ecru)"/>
+          <!-- Right shoulder as filled shape -->
+          <path class="hanger-shoulder-r" d="
+            M 104 67 C 114 74, 142 94, 176 118
+            L 179 113
+            C 144 90, 116 72, 96 67 Z
+          " fill="var(--ecru)"/>
+          <!-- Bottom bar as filled shape with slight bow -->
+          <path class="hanger-bar" d="
+            M 21 113 C 60 116, 140 116, 179 113
+            L 176 120 C 138 122, 62 122, 24 120 Z
+          " fill="var(--ecru)"/>
           
-          <!-- DUCK FEATURES (hidden by default, drawn on hover) -->
+          <!-- DUCK FEATURES (hidden by default) -->
           <!-- Eye -->
-          <circle class="duck-eye" cx="126" cy="32" r="3.5" fill="var(--ecru)" stroke="none"/>
-          <!-- Beak -->
-          <path class="duck-beak" d="M 132 30 L 148 26 L 144 34 Z" fill="var(--ecru)" stroke="var(--ecru)" stroke-width="2" stroke-linejoin="round"/>
+          <circle class="duck-eye" cx="66" cy="22" r="3" fill="var(--ink)"/>
+          <!-- Beak extending left from hook tip -->
+          <path class="duck-beak" d="M 63 35 L 44 28 L 50 40 Z" fill="var(--ecru)" stroke="none"/>
           <!-- Left foot -->
-          <path class="duck-foot-left" d="M 72 118 L 64 140 L 52 136 M 64 140 L 64 148 M 64 140 L 76 142" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="duck-foot-left" d="M 68 120 L 60 142 L 48 138 M 60 142 L 58 152 M 60 142 L 72 144" stroke="var(--ecru)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
           <!-- Right foot -->
-          <path class="duck-foot-right" d="M 120 118 L 128 140 L 116 144 M 128 140 L 128 148 M 128 140 L 140 142" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Tail feathers -->
-          <path class="duck-tail" d="M 28 118 L 14 108 M 28 118 L 10 114 M 28 118 L 16 122" stroke-width="5" stroke-linecap="round"/>
+          <path class="duck-foot-right" d="M 124 120 L 132 142 L 120 146 M 132 142 L 132 152 M 132 142 L 144 144" stroke="var(--ecru)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Tail feathers from right side -->
+          <path class="duck-tail" d="M 176 118 L 192 108 M 176 118 L 196 114 M 176 118 L 190 124" stroke="var(--ecru)" stroke-width="5" stroke-linecap="round" fill="none"/>
         </g>
       </svg>
     </div>
@@ -670,24 +692,80 @@
   <p class="subtitle">Apparel designer specializing in womenswear</p>
   <div class="social-icons">
     <a href="mailto:lindsaybaugh@yahoo.com" class="social-icon" title="Email">
-      <svg viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="5" y="5" width="90" height="68" rx="5" ry="5"/>
-        <path d="M 5 8 L 48 42 Q 50 44, 52 42 L 95 8"/>
+      <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+        <!-- Envelope drawn as filled outline with varying thickness -->
+        <path d="
+          M 12 6 C 35 5, 65 7, 90 6 C 94 6, 96 9, 96 13
+          C 97 30, 96 55, 96 67 C 96 72, 93 75, 88 75
+          C 65 76, 35 74, 12 75 C 7 75, 4 72, 4 67
+          C 3 50, 4 25, 4 13 C 4 9, 7 6, 12 6 Z
+          M 12 12 C 7 12, 8 14, 8 18
+          C 8 50, 9 62, 8 67 C 8 69, 10 70, 12 70
+          C 35 71, 65 69, 88 70 C 90 70, 92 69, 92 67
+          C 91 55, 92 25, 92 13 C 92 10, 90 11, 88 12
+          C 65 12, 35 11, 12 12 Z
+        " fill="currentColor" fill-rule="evenodd"/>
+        <!-- Envelope flap V -->
+        <path d="
+          M 8 10 C 20 8, 30 8, 45 8 L 50 8 L 55 8 C 70 8, 80 8, 92 10
+          L 52 42 C 50 44, 49 44, 47 42 Z
+          M 18 12 L 50 37 L 82 12
+          C 70 12, 30 12, 18 12 Z
+        " fill="currentColor" fill-rule="evenodd"/>
       </svg>
     </a>
     <a href="https://www.linkedin.com/in/lindsay-baugh-731a1866/" class="social-icon" title="LinkedIn">
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="8" y="8" width="84" height="84" rx="12" ry="12"/>
-        <line x1="30" y1="72" x2="30" y2="42"/>
-        <circle cx="30" cy="30" r="4" fill="currentColor" stroke="none"/>
-        <path d="M 44 72 L 44 54 C 44 46, 48 42, 55 42 C 62 42, 66 46, 66 54 L 66 72"/>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rounded square border -->
+        <path d="
+          M 22 5 C 12 5, 5 12, 5 22
+          L 5 78 C 5 88, 12 95, 22 95
+          L 78 95 C 88 95, 95 88, 95 78
+          L 95 22 C 95 12, 88 5, 78 5 Z
+          M 22 11 C 15 11, 11 15, 11 22
+          L 11 78 C 11 85, 15 89, 22 89
+          L 78 89 C 85 89, 89 85, 89 78
+          L 89 22 C 89 15, 85 11, 78 11 Z
+        " fill="currentColor" fill-rule="evenodd"/>
+        <!-- i dot -->
+        <circle cx="30" cy="29" r="6" fill="currentColor"/>
+        <!-- i bar -->
+        <path d="M 25 42 L 35 42 L 36 72 L 24 72 Z" fill="currentColor"/>
+        <!-- n shape -->
+        <path d="
+          M 44 42 L 54 42 L 54 52 C 55 46, 58 42, 65 42
+          C 73 42, 76 48, 76 56 L 76 72 L 66 72
+          L 66 57 C 66 51, 64 48, 59 48
+          C 54 48, 52 51, 52 57 L 52 72 L 44 72 Z
+        " fill="currentColor"/>
       </svg>
     </a>
     <a href="https://www.instagram.com/genzfashion_file/" class="social-icon" title="Instagram">
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="8" y="8" width="84" height="84" rx="18" ry="18"/>
-        <circle cx="50" cy="50" r="20"/>
-        <circle cx="74" cy="26" r="5" fill="currentColor" stroke="none"/>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rounded square border -->
+        <path d="
+          M 26 5 C 14 5, 5 14, 5 26
+          L 5 74 C 5 86, 14 95, 26 95
+          L 74 95 C 86 95, 95 86, 95 74
+          L 95 26 C 95 14, 86 5, 74 5 Z
+          M 26 11 C 17 11, 11 17, 11 26
+          L 11 74 C 11 83, 17 89, 26 89
+          L 74 89 C 83 89, 89 83, 89 74
+          L 89 26 C 89 17, 83 11, 74 11 Z
+        " fill="currentColor" fill-rule="evenodd"/>
+        <!-- Camera lens circle -->
+        <path d="
+          M 50 26 C 37 26, 26 37, 26 50
+          C 26 63, 37 74, 50 74
+          C 63 74, 74 63, 74 50
+          C 74 37, 63 26, 50 26 Z
+          M 50 32 C 40 32, 32 40, 32 50
+          C 32 60, 40 68, 50 68
+          C 60 68, 68 60, 68 50
+          C 68 40, 60 32, 50 32 Z
+        " fill="currentColor" fill-rule="evenodd"/>
+        <!-- Flash dot -->
+        <circle cx="76" cy="24" r="6" fill="currentColor"/>
       </svg>
     </a>
   </div>
