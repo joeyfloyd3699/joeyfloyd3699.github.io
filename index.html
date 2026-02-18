@@ -434,98 +434,89 @@
     color: var(--charcoal);
   }
 
-  /* ─── PAGE TURN TRANSITION ─── */
-  .page-turn-overlay {
+  /* ─── CURTAIN TRANSITION ─── */
+  .curtain-overlay {
     position: fixed;
     inset: 0;
     z-index: 200;
     pointer-events: none;
-    perspective: 2200px;
+    display: flex;
   }
 
-  .page-turn-leaf {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
+  .curtain-left,
+  .curtain-right {
+    width: 50%;
     height: 100%;
-    background: var(--cream);
+    background: var(--ink);
     background-image:
-      radial-gradient(ellipse 80% 60% at 30% 40%, rgba(255,250,240,0.4) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 80% at 70% 60%, rgba(200,185,160,0.1) 0%, transparent 50%),
       repeating-linear-gradient(
-        90deg, transparent, transparent 1px,
-        rgba(180,165,140,0.03) 1px, rgba(180,165,140,0.03) 2px
-      );
-    transform-origin: left center;
-    transform: rotateY(0deg);
-    opacity: 0;
-    box-shadow: none;
-    backface-visibility: hidden;
+        0deg, transparent, transparent 3px,
+        rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 5px
+      ),
+      radial-gradient(ellipse 80% 60% at 40% 40%, rgba(255,255,255,0.04) 0%, transparent 60%);
+    position: relative;
   }
 
-  /* Back side of the page */
-  .page-turn-back {
+  /* Subtle fold shadow along the center seam */
+  .curtain-left::after,
+  .curtain-right::after {
+    content: '';
     position: absolute;
     top: 0;
+    width: 30px;
+    height: 100%;
+  }
+
+  .curtain-left::after {
     right: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--ecru-dark);
-    background-image:
-      linear-gradient(to right, rgba(0,0,0,0.06) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.03) 100%);
-    transform-origin: left center;
-    transform: rotateY(180deg);
-    opacity: 0;
-    backface-visibility: hidden;
+    background: linear-gradient(to left, rgba(255,255,255,0.06), transparent);
   }
 
-  .page-turn-overlay.turning .page-turn-leaf,
-  .page-turn-overlay.turning .page-turn-back {
-    opacity: 1;
-    animation: pageTurn 4s cubic-bezier(0.15, 0.0, 0.25, 1) forwards;
-  }
-
-  /* Shadow cast on the page beneath */
-  .page-turn-shadow {
-    position: absolute;
-    top: 0;
+  .curtain-right::after {
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3);
-    opacity: 0;
+    background: linear-gradient(to right, rgba(255,255,255,0.06), transparent);
   }
 
-  .page-turn-overlay.turning .page-turn-shadow {
-    animation: pageUnderShadow 4s cubic-bezier(0.15, 0.0, 0.25, 1) forwards;
+  /* CLOSE: curtains slide in from edges to center */
+  .curtain-left {
+    transform: translateX(-100%);
+  }
+  .curtain-right {
+    transform: translateX(100%);
   }
 
-  @keyframes pageTurn {
-    0% {
-      transform: rotateY(0deg);
-      box-shadow: -2px 0 5px rgba(0,0,0,0.0);
-    }
-    15% {
-      box-shadow: -8px 0 20px rgba(0,0,0,0.08);
-    }
-    50% {
-      box-shadow: -20px 0 40px rgba(0,0,0,0.18);
-    }
-    85% {
-      box-shadow: -8px 0 20px rgba(0,0,0,0.08);
-    }
-    100% {
-      transform: rotateY(-180deg);
-      box-shadow: -2px 0 5px rgba(0,0,0,0.0);
-    }
+  .curtain-overlay.closing .curtain-left {
+    animation: curtainCloseLeft 1.2s cubic-bezier(0.45, 0, 0.15, 1) forwards;
+  }
+  .curtain-overlay.closing .curtain-right {
+    animation: curtainCloseRight 1.2s cubic-bezier(0.45, 0, 0.15, 1) forwards;
   }
 
-  @keyframes pageUnderShadow {
-    0% { opacity: 0; }
-    30% { opacity: 0.15; }
-    70% { opacity: 0.15; }
-    100% { opacity: 0; }
+  /* OPEN: curtains start closed, slide apart */
+  .curtain-overlay.opening .curtain-left {
+    transform: translateX(0);
+    animation: curtainOpenLeft 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s forwards;
+  }
+  .curtain-overlay.opening .curtain-right {
+    transform: translateX(0);
+    animation: curtainOpenRight 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s forwards;
+  }
+
+  @keyframes curtainCloseLeft {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+  }
+  @keyframes curtainCloseRight {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+  }
+  @keyframes curtainOpenLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes curtainOpenRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
   }
 
   /* ─── ANIMATIONS ─── */
@@ -544,11 +535,10 @@
 
 <div class="linen-bg"></div>
 
-<!-- Page Turn Overlay -->
-<div class="page-turn-overlay" id="pageTurnOverlay">
-  <div class="page-turn-shadow"></div>
-  <div class="page-turn-back"></div>
-  <div class="page-turn-leaf"></div>
+<!-- Curtain Transition -->
+<div class="curtain-overlay" id="curtainOverlay">
+  <div class="curtain-left"></div>
+  <div class="curtain-right"></div>
 </div>
 
 <!-- Landing Page -->
@@ -580,12 +570,12 @@
   <h2 class="links-header">Lindsay Baugh</h2>
   <p class="links-subtitle">Selected Work & Links</p>
   <ul class="links-list">
-    <li><a href="resume.html" class="page-link"><span class="link-dot"></span>Resume</a></li>
-    <li><a href="#" class="page-link"><span class="link-dot"></span>Gen Z Spring 2027</a></li>
-    <li><a href="#" class="page-link"><span class="link-dot"></span>Millennial Spring 2027</a></li>
-    <li><a href="#" class="page-link"><span class="link-dot"></span>Market Analysis & Benchmarking</a></li>
-    <li><a href="tna.html" class="page-link"><span class="link-dot"></span>TNA Spring 2016 Project</a></li>
-    <li><a href="files/BP.pdf" class="page-link"><span class="link-dot"></span>BP Fall 2014 Project</a></li>
+    <li><a href="resume.html" class="curtain-link"><span class="link-dot"></span>Resume</a></li>
+    <li><a href="#"><span class="link-dot"></span>Gen Z Spring 2027</a></li>
+    <li><a href="#"><span class="link-dot"></span>Millennial Spring 2027</a></li>
+    <li><a href="#"><span class="link-dot"></span>Market Analysis & Benchmarking</a></li>
+    <li><a href="tna.html" class="curtain-link"><span class="link-dot"></span>TNA Spring 2016 Project</a></li>
+    <li><a href="files/BP.pdf" class="curtain-link"><span class="link-dot"></span>BP Fall 2014 Project</a></li>
   </ul>
   <button class="back-btn" id="backBtn">Back</button>
 </section>
@@ -665,17 +655,20 @@
     showLinksPage();
   }
 
-  // Page turn transition for links
-  const pageTurnOverlay = document.getElementById('pageTurnOverlay');
-  document.querySelectorAll('.page-link').forEach(link => {
+  // Curtain transition for links
+  const curtainOverlay = document.getElementById('curtainOverlay');
+  
+  document.querySelectorAll('.curtain-link').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       if (!href || href === '#') return;
       e.preventDefault();
-      pageTurnOverlay.classList.add('turning');
-      setTimeout(() => {
+      curtainOverlay.classList.add('closing');
+      
+      const leftPanel = curtainOverlay.querySelector('.curtain-left');
+      leftPanel.addEventListener('animationend', () => {
         window.location.href = href;
-      }, 3500);
+      }, { once: true });
     });
   });
 </script>
