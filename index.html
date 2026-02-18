@@ -6,17 +6,17 @@
 <title>Lindsay Baugh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Josefin+Sans:wght@200;300;400&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --ecru: #f5f0e8;
-    --ecru-dark: #e8e0d0;
-    --charcoal: #1a1a1a;
-    --ink: #0a0a0a;
-    --warm-gray: #8a8278;
-    --cream: #faf6ee;
+    --ecru: #e8dcc8;
+    --ecru-dark: #d9ccb4;
+    --charcoal: #111111;
+    --ink: #000000;
+    --warm-gray: #3d362f;
+    --cream: #f0e6d4;
   }
 
   html, body {
@@ -30,41 +30,71 @@
     color: var(--charcoal);
   }
 
-  /* Linen texture overlay */
+  /* Draped fabric texture */
   .linen-bg {
     position: fixed;
     inset: 0;
     z-index: 0;
     background-color: var(--ecru);
     background-image:
+      /* Soft diagonal drape folds */
+      radial-gradient(ellipse 120% 80% at 15% 20%, rgba(255,248,235,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse 100% 90% at 80% 15%, rgba(255,250,240,0.35) 0%, transparent 45%),
+      radial-gradient(ellipse 90% 120% at 40% 75%, rgba(200,185,160,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 110% 70% at 70% 60%, rgba(255,248,235,0.3) 0%, transparent 45%),
+      radial-gradient(ellipse 80% 100% at 25% 50%, rgba(200,185,160,0.12) 0%, transparent 40%),
+      /* Flowing wave folds - left to right drape */
+      linear-gradient(135deg, 
+        rgba(255,250,240,0.25) 0%, transparent 15%,
+        rgba(200,185,160,0.1) 25%, transparent 35%,
+        rgba(255,250,240,0.2) 45%, transparent 55%,
+        rgba(200,185,160,0.08) 65%, transparent 75%,
+        rgba(255,250,240,0.15) 85%, transparent 100%
+      ),
+      /* Subtle cross-drape */
+      linear-gradient(225deg,
+        rgba(255,250,240,0.15) 0%, transparent 20%,
+        rgba(200,185,160,0.08) 35%, transparent 50%,
+        rgba(255,250,240,0.12) 65%, transparent 80%
+      ),
+      /* Fine fabric weave texture */
       repeating-linear-gradient(
         0deg,
         transparent,
-        transparent 2px,
-        rgba(0,0,0,0.01) 2px,
-        rgba(0,0,0,0.01) 4px
+        transparent 1px,
+        rgba(180,165,140,0.04) 1px,
+        rgba(180,165,140,0.04) 2px
       ),
       repeating-linear-gradient(
         90deg,
         transparent,
-        transparent 2px,
-        rgba(0,0,0,0.01) 2px,
-        rgba(0,0,0,0.01) 4px
-      ),
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 3px,
-        rgba(139,119,101,0.02) 3px,
-        rgba(139,119,101,0.02) 5px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 5px,
-        rgba(139,119,101,0.015) 5px,
-        rgba(139,119,101,0.015) 7px
+        transparent 1px,
+        rgba(180,165,140,0.03) 1px,
+        rgba(180,165,140,0.03) 2px
       );
+  }
+  
+  /* SVG noise filter for fabric grain */
+  .linen-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
+  /* Soft highlight/shadow for drape depth */
+  .linen-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 30%, rgba(255,252,245,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 75% 70%, rgba(160,145,120,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 70% 40% at 55% 45%, rgba(255,250,240,0.15) 0%, transparent 50%);
+    pointer-events: none;
   }
 
   /* ─── LANDING PAGE ─── */
@@ -87,7 +117,7 @@
 
   .name {
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: clamp(1.2rem, 3vw, 1.8rem);
     letter-spacing: 0.45em;
     text-transform: uppercase;
@@ -125,25 +155,45 @@
     box-shadow: 0 12px 50px rgba(0,0,0,0.25);
   }
 
-  .circle svg {
-    width: 55%;
-    height: 55%;
-    fill: none;
-    stroke: var(--ecru);
-    stroke-width: 5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  .circle .circle-hanger {
+    width: 60%;
+    height: auto;
+    pointer-events: none;
+    filter: invert(1) sepia(0.3) saturate(0.5) hue-rotate(15deg) brightness(0.95);
   }
 
   .subtitle {
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 200;
+    font-weight: 400;
     font-size: clamp(0.6rem, 1.4vw, 0.85rem);
     letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--warm-gray);
     opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .enter-btn {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    background: none;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 0.55rem 2rem;
+    margin-bottom: 2.5rem;
+    cursor: pointer;
+    opacity: 0;
     animation: fadeUp 1s ease 0.9s forwards;
+    transition: all 0.3s ease;
+  }
+
+  .enter-btn:hover {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
   }
 
   /* ─── PASSWORD MODAL ─── */
@@ -169,15 +219,6 @@
 
   .modal {
     background: var(--cream);
-    background-image:
-      repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0,0,0,0.008) 2px, rgba(0,0,0,0.008) 4px
-      ),
-      repeating-linear-gradient(
-        90deg, transparent, transparent 2px,
-        rgba(0,0,0,0.008) 2px, rgba(0,0,0,0.008) 4px
-      );
     padding: 3rem 3.5rem;
     text-align: center;
     max-width: 400px;
@@ -192,10 +233,10 @@
   }
 
   .modal-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 1.4rem;
-    letter-spacing: 0.15em;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
     color: var(--charcoal);
     margin-bottom: 2rem;
     text-transform: uppercase;
@@ -207,7 +248,7 @@
     border: 1px solid rgba(0,0,0,0.12);
     background: rgba(255,255,255,0.6);
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.9rem;
     letter-spacing: 0.2em;
     text-align: center;
@@ -221,7 +262,7 @@
   }
 
   .modal input[type="password"]::placeholder {
-    color: #bbb;
+    color: #888;
     letter-spacing: 0.15em;
   }
 
@@ -233,7 +274,7 @@
     color: var(--ecru);
     border: none;
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.75rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -252,7 +293,7 @@
     letter-spacing: 0.1em;
     margin-top: 1rem;
     height: 1rem;
-    font-weight: 300;
+    font-weight: 400;
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -299,7 +340,7 @@
 
   .links-header {
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     letter-spacing: 0.4em;
     text-transform: uppercase;
@@ -309,7 +350,7 @@
 
   .links-subtitle {
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 200;
+    font-weight: 400;
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -327,12 +368,13 @@
   }
 
   .links-list a {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-weight: 400;
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
     color: var(--charcoal);
     text-decoration: none;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
     position: relative;
     transition: color 0.3s ease;
   }
@@ -356,16 +398,19 @@
     width: 100%;
   }
 
-  .link-hanger {
-    width: 1em;
-    height: 0.85em;
-    margin-right: 0.5em;
-    vertical-align: -0.05em;
-    opacity: 0.75;
+  .link-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    margin-right: 0.6em;
+    vertical-align: 0.15em;
+    opacity: 0.5;
     transition: opacity 0.3s ease;
   }
 
-  .links-list a:hover .link-hanger {
+  .links-list a:hover .link-dot {
     opacity: 1;
   }
 
@@ -375,7 +420,7 @@
     border: 1px solid rgba(0,0,0,0.12);
     padding: 0.5rem 2rem;
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.65rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -410,24 +455,10 @@
   <h1 class="name">Lindsay Baugh</h1>
   <div class="circle-container">
     <div class="circle" id="circleBtn" title="Enter">
-      <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Hook -->
-        <path d="
-          M 60 35
-          L 60 25
-          C 60 15, 68 10, 72 16
-          C 75 20, 72 24, 68 25
-        " stroke-width="5" fill="none"/>
-        <!-- Shoulders -->
-        <path d="
-          M 60 35
-          L 15 65
-          L 105 65
-          Z
-        " stroke-width="5" fill="none" stroke-linejoin="round"/>
-      </svg>
+      <img src="data:image/png;base64,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" alt="hanger" class="circle-hanger">
     </div>
   </div>
+  <button class="enter-btn" id="enterBtn">Enter Here</button>
   <p class="subtitle">Apparel designer specializing in womenswear</p>
 </section>
 
@@ -448,12 +479,12 @@
   <h2 class="links-header">Lindsay Baugh</h2>
   <p class="links-subtitle">Selected Work & Links</p>
   <ul class="links-list">
-    <li><a href="#" target="_blank"><svg class="link-hanger" viewBox="0 0 120 100"><path d="M 60 35 L 60 25 C 60 15, 68 10, 72 16 C 75 20, 72 24, 68 25" stroke-width="5" fill="none" stroke="currentColor" stroke-linecap="round"/><path d="M 60 35 L 15 65 L 105 65 Z" stroke-width="5" fill="none" stroke="currentColor" stroke-linejoin="round"/></svg>Resume</a></li>
-    <li><a href="#" target="_blank"><svg class="link-hanger" viewBox="0 0 120 100"><path d="M 60 35 L 60 25 C 60 15, 68 10, 72 16 C 75 20, 72 24, 68 25" stroke-width="5" fill="none" stroke="currentColor" stroke-linecap="round"/><path d="M 60 35 L 15 65 L 105 65 Z" stroke-width="5" fill="none" stroke="currentColor" stroke-linejoin="round"/></svg>GenZ Spring 2027</a></li>
-    <li><a href="#" target="_blank"><svg class="link-hanger" viewBox="0 0 120 100"><path d="M 60 35 L 60 25 C 60 15, 68 10, 72 16 C 75 20, 72 24, 68 25" stroke-width="5" fill="none" stroke="currentColor" stroke-linecap="round"/><path d="M 60 35 L 15 65 L 105 65 Z" stroke-width="5" fill="none" stroke="currentColor" stroke-linejoin="round"/></svg>Millenial Spring 2027</a></li>
-    <li><a href="#" target="_blank"><svg class="link-hanger" viewBox="0 0 120 100"><path d="M 60 35 L 60 25 C 60 15, 68 10, 72 16 C 75 20, 72 24, 68 25" stroke-width="5" fill="none" stroke="currentColor" stroke-linecap="round"/><path d="M 60 35 L 15 65 L 105 65 Z" stroke-width="5" fill="none" stroke="currentColor" stroke-linejoin="round"/></svg>Market Analysis & Benchmarking</a></li>
-    <li><a href="#" target="_blank"><svg class="link-hanger" viewBox="0 0 120 100"><path d="M 60 35 L 60 25 C 60 15, 68 10, 72 16 C 75 20, 72 24, 68 25" stroke-width="5" fill="none" stroke="currentColor" stroke-linecap="round"/><path d="M 60 35 L 15 65 L 105 65 Z" stroke-width="5" fill="none" stroke="currentColor" stroke-linejoin="round"/></svg>TNA Spring 2016 Project</a></li>
-    <li><a href="#" target="_blank"><svg class="link-hanger" viewBox="0 0 120 100"><path d="M 60 35 L 60 25 C 60 15, 68 10, 72 16 C 75 20, 72 24, 68 25" stroke-width="5" fill="none" stroke="currentColor" stroke-linecap="round"/><path d="M 60 35 L 15 65 L 105 65 Z" stroke-width="5" fill="none" stroke="currentColor" stroke-linejoin="round"/></svg>BP Fall 2014 Project</a></li>
+    <li><a href="#" target="_blank"><span class="link-dot"></span>Resume</a></li>
+    <li><a href="#" target="_blank"><span class="link-dot"></span>GenZ Spring 2027</a></li>
+    <li><a href="#" target="_blank"><span class="link-dot"></span>Millenial Spring 2027</a></li>
+    <li><a href="#" target="_blank"><span class="link-dot"></span>Market Analysis & Benchmarking</a></li>
+    <li><a href="tna.html" target="_blank"><span class="link-dot"></span>TNA Spring 2016 Project</a></li>
+    <li><a href="#" target="_blank"><span class="link-dot"></span>BP Fall 2014 Project</a></li>
   </ul>
   <button class="back-btn" id="backBtn">Back</button>
 </section>
@@ -464,6 +495,7 @@
 
   // ─── ELEMENTS ───
   const circleBtn = document.getElementById('circleBtn');
+  const enterBtn = document.getElementById('enterBtn');
   const modalOverlay = document.getElementById('modalOverlay');
   const modalClose = document.getElementById('modalClose');
   const passwordInput = document.getElementById('passwordInput');
@@ -473,10 +505,13 @@
   const linksPage = document.getElementById('linksPage');
 
   // Open modal
-  circleBtn.addEventListener('click', () => {
+  circleBtn.addEventListener('click', openModal);
+  enterBtn.addEventListener('click', openModal);
+
+  function openModal() {
     modalOverlay.classList.add('active');
     setTimeout(() => passwordInput.focus(), 300);
-  });
+  }
 
   // Close modal
   modalClose.addEventListener('click', closeModal);
