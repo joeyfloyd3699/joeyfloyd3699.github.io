@@ -107,62 +107,7 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     border-radius: 2px;
   }
-
-  /* ─── CURTAIN TRANSITION ─── */
-  .curtain-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    pointer-events: none;
-    display: flex;
-  }
-
-  .curtain-left,
-  .curtain-right {
-    width: 50%;
-    height: 100%;
-    background: var(--ink);
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 5px),
-      radial-gradient(ellipse 80% 60% at 40% 40%, rgba(255,255,255,0.04) 0%, transparent 60%);
-    position: relative;
-  }
-
-  .curtain-left::after,
-  .curtain-right::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 30px;
-    height: 100%;
-  }
-
-  .curtain-left::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(255,255,255,0.06), transparent);
-  }
-
-  .curtain-right::after {
-    left: 0;
-    background: linear-gradient(to right, rgba(255,255,255,0.06), transparent);
-  }
-
-  .curtain-overlay.opening .curtain-left {
-    transform: translateX(0);
-    animation: curtainOpenLeft 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s forwards;
-  }
-  .curtain-overlay.opening .curtain-right {
-    transform: translateX(0);
-    animation: curtainOpenRight 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s forwards;
-  }
-
-  @keyframes curtainOpenLeft {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
-  @keyframes curtainOpenRight {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(100%); }
+100% { transform: translateX(100%); }
   }
 
   @media (max-width: 600px) {
@@ -173,13 +118,6 @@
 <body>
 
 <div class="linen-bg"></div>
-
-<!-- Curtain Transition -->
-<div class="curtain-overlay opening" id="curtainOverlay">
-  <div class="curtain-left"></div>
-  <div class="curtain-right"></div>
-</div>
-
 <div class="page">
   <a href="index.html#links" class="back-link">&larr; Back</a>
   <h1 class="page-title">Market Analysis & Benchmarking</h1>

@@ -465,91 +465,6 @@
     color: var(--charcoal);
   }
 
-  /* ─── CURTAIN TRANSITION ─── */
-  .curtain-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    pointer-events: none;
-    display: flex;
-  }
-
-  .curtain-left,
-  .curtain-right {
-    width: 50%;
-    height: 100%;
-    background: var(--ink);
-    background-image:
-      repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 5px
-      ),
-      radial-gradient(ellipse 80% 60% at 40% 40%, rgba(255,255,255,0.04) 0%, transparent 60%);
-    position: relative;
-  }
-
-  /* Subtle fold shadow along the center seam */
-  .curtain-left::after,
-  .curtain-right::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 30px;
-    height: 100%;
-  }
-
-  .curtain-left::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(255,255,255,0.06), transparent);
-  }
-
-  .curtain-right::after {
-    left: 0;
-    background: linear-gradient(to right, rgba(255,255,255,0.06), transparent);
-  }
-
-  /* CLOSE: curtains slide in from edges to center */
-  .curtain-left {
-    transform: translateX(-100%);
-  }
-  .curtain-right {
-    transform: translateX(100%);
-  }
-
-  .curtain-overlay.closing .curtain-left {
-    animation: curtainCloseLeft 1.2s cubic-bezier(0.45, 0, 0.15, 1) forwards;
-  }
-  .curtain-overlay.closing .curtain-right {
-    animation: curtainCloseRight 1.2s cubic-bezier(0.45, 0, 0.15, 1) forwards;
-  }
-
-  /* OPEN: curtains start closed, slide apart */
-  .curtain-overlay.opening .curtain-left {
-    transform: translateX(0);
-    animation: curtainOpenLeft 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s forwards;
-  }
-  .curtain-overlay.opening .curtain-right {
-    transform: translateX(0);
-    animation: curtainOpenRight 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s forwards;
-  }
-
-  @keyframes curtainCloseLeft {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(0); }
-  }
-  @keyframes curtainCloseRight {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(0); }
-  }
-  @keyframes curtainOpenLeft {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
-  @keyframes curtainOpenRight {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(100%); }
-  }
-
   /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(15px); }
@@ -575,10 +490,7 @@
 <div class="linen-bg"></div>
 
 <!-- Curtain Transition -->
-<div class="curtain-overlay" id="curtainOverlay">
-  <div class="curtain-left"></div>
-  <div class="curtain-right"></div>
-</div>
+
 
 <!-- Landing Page -->
 <section class="landing" id="landing">
@@ -692,12 +604,12 @@
   <h2 class="links-header">Lindsay Baugh</h2>
   <p class="links-subtitle">Selected Work & Links</p>
   <ul class="links-list">
-    <li><a href="resume.html" class="curtain-link"><span class="link-dot"></span>Resume</a></li>
+    <li><a href="resume.html"><span class="link-dot"></span>Resume</a></li>
     <li><a href="#"><span class="link-dot"></span>Gen Z Spring 2027</a></li>
     <li><a href="#"><span class="link-dot"></span>Millennial Spring 2027</a></li>
-    <li><a href="market.html" class="curtain-link"><span class="link-dot"></span>Market Analysis & Benchmarking</a></li>
-    <li><a href="tna.html" class="curtain-link"><span class="link-dot"></span>TNA Spring 2016 Project</a></li>
-    <li><a href="files/BP.pdf" class="curtain-link"><span class="link-dot"></span>BP Fall 2014 Project</a></li>
+    <li><a href="market.html"><span class="link-dot"></span>Market Analysis & Benchmarking</a></li>
+    <li><a href="tna.html"><span class="link-dot"></span>TNA Spring 2016 Project</a></li>
+    <li><a href="files/BP.pdf"><span class="link-dot"></span>BP Fall 2014 Project</a></li>
   </ul>
   <button class="back-btn" id="backBtn">Back</button>
 </section>
@@ -789,23 +701,6 @@
   if (window.location.hash === '#links') {
     showLinksPage();
   }
-
-  // Curtain transition for links
-  const curtainOverlay = document.getElementById('curtainOverlay');
-  
-  document.querySelectorAll('.curtain-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (!href || href === '#') return;
-      e.preventDefault();
-      curtainOverlay.classList.add('closing');
-      
-      const leftPanel = curtainOverlay.querySelector('.curtain-left');
-      leftPanel.addEventListener('animationend', () => {
-        window.location.href = href;
-      }, { once: true });
-    });
-  });
 </script>
 
 </body>
