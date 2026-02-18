@@ -484,7 +484,7 @@
     <li><a href="#" target="_blank"><span class="link-dot"></span>Millenial Spring 2027</a></li>
     <li><a href="#" target="_blank"><span class="link-dot"></span>Market Analysis & Benchmarking</a></li>
     <li><a href="tna.html" target="_blank"><span class="link-dot"></span>TNA Spring 2016 Project</a></li>
-    <li><a href="#" target="_blank"><span class="link-dot"></span>BP Fall 2014 Project</a></li>
+    <li><a href="files/BP.pdf" target="_blank"><span class="link-dot"></span>BP Fall 2014 Project</a></li>
   </ul>
   <button class="back-btn" id="backBtn">Back</button>
 </section>
@@ -554,7 +554,15 @@
   }
 
   // Back button
-  document.getElementById('backBtn').addEventListener('click', showLanding);
+  document.getElementById('backBtn').addEventListener('click', () => {
+    showLanding();
+    history.replaceState(null, '', window.location.pathname);
+  });
+
+  // If returning from a sub-page, go straight to links
+  if (window.location.hash === '#links') {
+    showLinksPage();
+  }
 </script>
 
 </body>
