@@ -148,6 +148,7 @@
     cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
   }
 
   .circle:hover {
@@ -155,11 +156,68 @@
     box-shadow: 0 12px 50px rgba(0,0,0,0.25);
   }
 
-  .circle .circle-hanger {
-    width: 60%;
+  .circle .hanger-duck {
+    width: 65%;
     height: auto;
     pointer-events: none;
-    filter: invert(1) sepia(0.3) saturate(0.5) hue-rotate(15deg) brightness(0.95);
+    stroke: var(--ecru);
+  }
+
+  /* Duck features hidden by default */
+  .duck-eye, .duck-beak, .duck-foot-left, .duck-foot-right, .duck-tail {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  /* On circle hover: reveal duck features */
+  .circle:hover .duck-eye {
+    opacity: 1;
+    transition-delay: 0.1s;
+  }
+  .circle:hover .duck-beak {
+    opacity: 1;
+    transition-delay: 0.2s;
+  }
+  .circle:hover .duck-tail {
+    stroke: var(--ecru);
+    opacity: 1;
+    transition-delay: 0.3s;
+  }
+  .circle:hover .duck-foot-left {
+    stroke: var(--ecru);
+    opacity: 1;
+    transition-delay: 0.4s;
+  }
+  .circle:hover .duck-foot-right {
+    stroke: var(--ecru);
+    opacity: 1;
+    transition-delay: 0.5s;
+  }
+
+  /* Waddle animation on hover */
+  .circle:hover .duck-body {
+    animation: waddle 0.6s ease-in-out 0.6s 3;
+    transform-origin: center bottom;
+  }
+
+  @keyframes waddle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(4deg); }
+    75% { transform: rotate(-4deg); }
+  }
+
+  /* After waddle: duck walks out of circle */
+  .circle:hover .hanger-duck {
+    animation: duckWalkOut 2s ease-in 2.4s forwards;
+  }
+
+  @keyframes duckWalkOut {
+    0% { transform: translateX(0) translateY(0); }
+    20% { transform: translateX(10px) translateY(-5px); }
+    40% { transform: translateX(30px) translateY(-3px); }
+    60% { transform: translateX(55px) translateY(-5px); }
+    80% { transform: translateX(85px) translateY(-3px); }
+    100% { transform: translateX(200px) translateY(0); opacity: 0; }
   }
 
   .subtitle {
@@ -199,7 +257,7 @@
   /* ─── SOCIAL ICONS ─── */
   .social-icons {
     display: flex;
-    gap: 1.5rem;
+    gap: 2.5rem;
     margin-top: 2.5rem;
     justify-content: center;
     opacity: 0;
@@ -584,7 +642,28 @@
   <h1 class="name">Lindsay Baugh</h1>
   <div class="circle-container">
     <div class="circle" id="circleBtn" title="Enter">
-      <img src="data:image/png;base64,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" alt="hanger" class="circle-hanger">
+      <svg class="hanger-duck" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g class="duck-body">
+          <!-- Hanger hook = duck neck/head -->
+          <path class="hanger-hook" d="M 100 68 L 100 44 C 100 24, 124 16, 132 30 C 138 40, 130 48, 120 44" stroke-width="8" stroke-linecap="round"/>
+          <!-- Hanger shoulders = duck body -->
+          <path class="hanger-shoulders" d="M 28 118 Q 64 88, 100 68 Q 136 88, 172 118" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Bottom bar -->
+          <line class="hanger-bar" x1="28" y1="118" x2="172" y2="118" stroke-width="8" stroke-linecap="round"/>
+          
+          <!-- DUCK FEATURES (hidden by default, drawn on hover) -->
+          <!-- Eye -->
+          <circle class="duck-eye" cx="126" cy="32" r="3.5" fill="var(--ecru)" stroke="none"/>
+          <!-- Beak -->
+          <path class="duck-beak" d="M 132 30 L 148 26 L 144 34 Z" fill="var(--ecru)" stroke="var(--ecru)" stroke-width="2" stroke-linejoin="round"/>
+          <!-- Left foot -->
+          <path class="duck-foot-left" d="M 72 118 L 64 140 L 52 136 M 64 140 L 64 148 M 64 140 L 76 142" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Right foot -->
+          <path class="duck-foot-right" d="M 120 118 L 128 140 L 116 144 M 128 140 L 128 148 M 128 140 L 140 142" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Tail feathers -->
+          <path class="duck-tail" d="M 28 118 L 14 108 M 28 118 L 10 114 M 28 118 L 16 122" stroke-width="5" stroke-linecap="round"/>
+        </g>
+      </svg>
     </div>
   </div>
   <button class="enter-btn" id="enterBtn">Enter Here</button>
@@ -596,7 +675,7 @@
         <path d="M 5 8 L 48 42 Q 50 44, 52 42 L 95 8"/>
       </svg>
     </a>
-    <a href="#" class="social-icon" title="LinkedIn">
+    <a href="https://www.linkedin.com/in/lindsay-baugh-731a1866/" class="social-icon" title="LinkedIn">
       <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
         <rect x="8" y="8" width="84" height="84" rx="12" ry="12"/>
         <line x1="30" y1="72" x2="30" y2="42"/>
@@ -604,7 +683,7 @@
         <path d="M 44 72 L 44 54 C 44 46, 48 42, 55 42 C 62 42, 66 46, 66 54 L 66 72"/>
       </svg>
     </a>
-    <a href="#" class="social-icon" title="Instagram">
+    <a href="https://www.instagram.com/genzfashion_file/" class="social-icon" title="Instagram">
       <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
         <rect x="8" y="8" width="84" height="84" rx="18" ry="18"/>
         <circle cx="50" cy="50" r="20"/>
