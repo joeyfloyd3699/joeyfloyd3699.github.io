@@ -548,7 +548,7 @@
   <p class="links-subtitle">Selected Work & Links</p>
   <ul class="links-list">
     <li><a href="resume.html"><span class="link-dot"></span>Resume</a></li>
-    <li><a href="#"><span class="link-dot"></span>Gen Z Spring 2027</a></li>
+    <li><a href="genz.html"><span class="link-dot"></span>Gen Z Spring 2027</a></li>
     <li><a href="#"><span class="link-dot"></span>Millennial Spring 2027</a></li>
     <li><a href="market.html"><span class="link-dot"></span>Market Analysis & Benchmarking</a></li>
     <li><a href="tna.html"><span class="link-dot"></span>TNA Spring 2016 Project</a></li>
@@ -643,7 +643,7 @@
     linksPage.classList.add('active');
     // Push #links to history so browser back works
     if (window.location.hash !== '#links') {
-      history.pushState({ page: 'links' }, '', '#links');
+      try { history.pushState({ page: 'links' }, '', '#links'); } catch(e) {}
     }
   }
 
